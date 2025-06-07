@@ -17,3 +17,8 @@ body {
   padding-right: 15px;
   margin: 0 auto;
 }
+
+main {
+  padding-top: 100px;
+  min-height: calc(100vh - 100px);
+}

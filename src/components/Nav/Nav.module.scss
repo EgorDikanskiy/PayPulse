@@ -2,11 +2,45 @@
 
 .nav {
   display: flex;
-  justify-content: space-around;
-  gap: 2rem;
-  padding: 1rem 0;
-  width: 60%;
-  margin: 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  padding: 0 1rem;
+
+  .logo {
+    width: 200px;
+    img {
+      height: 40px;
+      width: auto;
+    }
+  }
+
+  .links {
+    display: flex;
+    gap: 2rem;
+    padding: 1rem 0;
+    width: 60%;
+    margin: 0 auto;
+    justify-content: center;
+  }
+
+  .profile {
+    width: 200px;
+    display: flex;
+    justify-content: flex-end;
+    a {
+      color: $green-main;
+      transition: color 0.2s;
+      &:hover {
+        color: #666;
+      }
+    }
+  }
 
   a {
     text-decoration: none;

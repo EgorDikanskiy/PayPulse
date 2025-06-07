@@ -59,4 +59,16 @@ export const routerUrls = {
     mask: '/request',
     create: () => `/request`,
   },
+  all_data: {
+    mask: '/all_data',
+    create: () => `/all_data`,
+  },
+  statistics: {
+    mask: '/statistics',
+    create: () => `/statistics`,
+  },
+  report: {
+    mask: '/report',
+    create: () => `/report`,
+  },
 };

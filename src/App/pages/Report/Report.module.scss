@@ -1,0 +1,57 @@
+.reportContainer {
+  width: 80%;;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.downloadSection {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.downloadButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.recommendations {
+  background-color: #f8f9fa;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+  }
+}
+
+.recommendationText {
+  p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    color: #444;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+} 

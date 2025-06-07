@@ -6,7 +6,6 @@ import styles from './RequestPage.module.scss';
 const RequestPage = () => {
   return (
     <div className={styles.requestPage}>
-      <Nav />
       <RequestForm />
     </div>
   );

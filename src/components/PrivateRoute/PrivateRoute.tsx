@@ -15,13 +15,7 @@ const PrivateRoute: React.FC = () => {
     const fetchUserData = async () => {
       if (!accessToken) return;
 
-      // Если у нас нет данных пользователя в состоянии, но есть в localStorage,
-      // используем их и делаем фоновый запрос для обновления
-      const savedUser = localStorage.getItem('user');
-      if (!user && accessToken) {
-        navigate('/confirm_mail');
-      }
-      if (!user && savedUser) {
+      if (!user) {
         try {
           const result = await dispatch(getCurrentUser());
           if (result.meta.requestStatus !== 'fulfilled' || !result.payload) {
