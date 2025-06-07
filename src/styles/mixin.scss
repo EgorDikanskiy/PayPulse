@@ -1,0 +1,89 @@
+@use "./variables.scss";
+
+.bold28 {
+  font-weight: 700;
+  font-size: 1.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.medium20 {
+  font-weight: 500;
+  font-size: 1.25rem;
+}
+
+.regular16 {
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.regular12 {
+  font-weight: 400;
+  font-size: 0.75rem;
+}
+
+.regular8 {
+  font-weight: 400;
+  font-size: 0.5rem;
+}
+
+.purple-text {
+  color: variables.$green-main;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+@mixin center-horizontal {
+  display: flex;
+  justify-content: center;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-align-center {
+  display: flex;
+  align-items: center;
+}
+
+@mixin icon-before($width, $height) {
+  &::before {
+    content: "";
+    display: inline-block;
+    width: $width;
+    height: $height;
+    background-repeat: no-repeat;
+  }
+}
+
+@mixin rounded-box($radius: 8px) {
+  border-radius: $radius;
+  overflow: hidden;
+}
+
+@mixin scrollbar-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@mixin info-tag($bg-color) {
+  @extend .regular16;
+  background-color: $bg-color;
+  padding: 2.5px 8px;
+  border-radius: 8px;
+}

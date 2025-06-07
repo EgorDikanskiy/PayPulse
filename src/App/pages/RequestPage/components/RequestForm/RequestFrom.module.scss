@@ -1,0 +1,71 @@
+@use 'styles/variables.scss' as *;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 60%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dateRange {
+  display: flex;
+  gap: 20px;
+}
+
+.dateField {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.requiredLabel::after {
+  content: ' *';
+  color: #ff4d4f;
+}
+
+.optionalLabel::after {
+  content: ' (необязательно)';
+  color: #8c8c8c;
+  font-size: 0.9em;
+  font-weight: normal;
+}
+
+.field {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+
+    &:focus {
+      outline: none;
+      border-color: $green-main;
+      box-shadow: 0 0 0 2px rgba(6, 189, 0, 0.2);
+    }
+  }
+
+  textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+}

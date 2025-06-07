@@ -1,0 +1,37 @@
+@use 'styles/variables.scss' as *;
+
+.nav {
+  display: flex;
+  justify-content: space-around;
+  gap: 2rem;
+  padding: 1rem 0;
+  width: 60%;
+  margin: 0 auto;
+
+  a {
+    text-decoration: none;
+    color: $black;
+    font-size: 1rem;
+    position: relative;
+    padding: 0.5rem 0;
+
+    &:hover {
+      color: $black-50;
+    }
+
+    &.active {
+      color: $green-main;
+      font-weight: 500;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: $green-main;
+      }
+    }
+  }
+}
