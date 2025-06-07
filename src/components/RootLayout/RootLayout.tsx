@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../index.scss';
+import ChatBot from '../ChatBot/ChatBot';
 import Nav from '../Nav';
 
 type RootLayoutProps = {
@@ -13,6 +14,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
       <div className="container">
         <main>{children}</main>
       </div>
+      <ChatBot />
     </div>
   );
 };
