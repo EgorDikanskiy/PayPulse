@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import Loader from 'components/Loader';
 import { AppDispatch, RootState } from 'store';
-import { getCurrentUser, refresh } from '../../actions/authActions';
+import { getCurrentUser } from '../../actions/authActions';
 
 const PrivateRoute: React.FC = () => {
   const navigate = useNavigate();
@@ -15,23 +15,19 @@ const PrivateRoute: React.FC = () => {
     const fetchUserData = async () => {
       if (!accessToken) return;
 
-      if (!user) {
-        try {
-          const result = await dispatch(getCurrentUser());
-          if (result.meta.requestStatus !== 'fulfilled' || !result.payload) {
-            const refreshResult = await dispatch(refresh());
-            if (refreshResult.meta.requestStatus === 'fulfilled') {
-              await dispatch(getCurrentUser());
-            }
-          }
-        } catch (error) {
-          console.error('Error fetching user data:', error);
+      try {
+        const result = await dispatch(getCurrentUser());
+        if (result.meta.requestStatus === 'rejected') {
+          navigate('/login');
         }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        navigate('/login');
       }
     };
 
     fetchUserData();
-  }, [accessToken, dispatch, user, navigate]);
+  }, [accessToken, dispatch, navigate]);
 
   if (loading) {
     return <Loader />;

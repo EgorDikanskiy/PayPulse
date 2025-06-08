@@ -30,26 +30,29 @@ const LoginPage = () => {
     }
   }, [error, dispatch]);
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    e.stopPropagation();
+
     setIsSubmitted(true);
-    const result = await dispatch(login({ password, login: email }));
+    const result = await dispatch(login({ password, email }));
 
     if (login.fulfilled.match(result)) {
       navigate(routerUrls.profile.mask);
-    } else if (login.rejected.match(result)) {
-      console.log('Login failed:', result.payload);
     }
   };
 
   if (loading) {
     return <Loader />;
   }
+  if (error) {
+    navigate(routerUrls.login.mask);
+  }
 
   return (
     <div className={styles.login}>
       <h1 className={styles.bold28}>{'Вход'}</h1>
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <form className={styles.form} onSubmit={handleSubmit} noValidate>
         <label htmlFor="email" className={styles.regular16}>
           E-mail или никнейм
         </label>

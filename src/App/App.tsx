@@ -4,7 +4,7 @@ import PrivateRoute from 'components/PrivateRoute';
 import RootLayout from 'components/RootLayout';
 import { routerUrls } from 'config/routerUrls';
 
-import AllDataPage from './AllDataPage';
+import AllDataPage from './pages/AllDataPage';
 import Login from './pages/Auth/LoginPage';
 import ProfilePage from './pages/Auth/ProfilePage';
 import Report from './pages/Report/Report';

@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { registerUser, login, getCurrentUser, resetError, refresh } from '../actions/authActions';
+import { login, getCurrentUser, resetError } from '../actions/authActions';
 
 interface User {
-  username: string;
+  email: string;
 }
 
 interface AuthState {
@@ -36,7 +36,6 @@ const authSlice = createSlice({
     },
     setUser(state, action) {
       state.user = action.payload;
-      localStorage.setItem('user', JSON.stringify(action.payload));
     },
     clearUser(state) {
       state.user = null;
@@ -55,7 +54,6 @@ const authSlice = createSlice({
         state.accessToken = action.payload.access_token;
         state.user = action.payload.user;
         localStorage.setItem('access_token', action.payload.access_token);
-        localStorage.setItem('user', JSON.stringify(action.payload.user));
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
@@ -70,7 +68,6 @@ const authSlice = createSlice({
       .addCase(getCurrentUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
-        localStorage.setItem('user', JSON.stringify(action.payload));
       })
       .addCase(getCurrentUser.rejected, (state, action) => {
         state.loading = false;
@@ -80,25 +77,6 @@ const authSlice = createSlice({
 
       .addCase(resetError, (state) => {
         state.error = null;
-      })
-
-      // refresh
-      .addCase(refresh.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(refresh.fulfilled, (state, action) => {
-        state.loading = false;
-        state.accessToken = action.payload.access_token;
-        localStorage.setItem('access_token', action.payload.access_token);
-      })
-      .addCase(refresh.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-        state.accessToken = null;
-        state.user = null;
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('user');
       });
   },
 });

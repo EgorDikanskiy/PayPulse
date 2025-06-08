@@ -11,6 +11,8 @@
 
         &__item {
             display: flex;
+            align-items: center;
+            cursor: pointer;
 
             &__logout {
                 @extend .regular12;

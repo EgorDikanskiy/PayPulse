@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { submitVacancy } from 'actions/vacancyActions';
+import type { VacancyRequest } from 'actions/vacancyActions';
 import { DatePicker } from 'components/DatePicker';
 import { MultiDropdown } from 'components/MultiDropdown';
 import { Button } from 'components/ui/Button';
+import { RootState } from 'reducers/rootReducer';
 import styles from './RequestFrom.module.scss';
 
 type Sphere = 'office' | 'warehouse_express' | 'warehouse_extended' | 'delivery_express' | 'delivery_extended' | 'it';
@@ -19,23 +23,23 @@ const sphereOptions = [
 ];
 
 const experienceOptions = [
-  { key: 'no_experience', value: 'Нет опыта' },
-  { key: '1_3_years', value: 'От 1 года до 3 лет' },
-  { key: '3_6_years', value: 'От 3 до 6 лет' },
-  { key: 'more_6_years', value: 'Более 6 лет' },
+  { key: 'noExperience', value: 'Нет опыта' },
+  { key: 'between1And3', value: 'От 1 года до 3 лет' },
+  { key: 'between3And6', value: 'От 3 до 6 лет' },
+  { key: 'moreThan6', value: 'Более 6 лет' },
 ];
 
 const employmentTypeOptions = [
-  { key: 'full_time', value: 'Полная занятость' },
-  { key: 'part_time', value: 'Подработка' },
-  { key: 'project', value: 'Проект или разовое задание' },
-  { key: 'shift', value: 'Вахта' },
+  { key: 'FULL', value: 'Полная занятость' },
+  { key: 'FULL', value: 'Подработка' },
+  { key: 'PROJECT', value: 'Проект или разовое задание' },
+  { key: 'FLY_IN_FLY_OUT', value: 'Вахта' },
 ];
 
 const paymentFrequencyOptions = [
-  { key: 'daily', value: 'Ежедневно' },
-  { key: 'weekly', value: 'Еженедельно' },
-  { key: 'biweekly', value: '2 раза в месяц' },
+  { key: 'DAILY', value: 'Ежедневно' },
+  { key: 'WEEKLY', value: 'Еженедельно' },
+  { key: 'TWICE_PER_MONTH', value: '2 раза в месяц' },
 ];
 
 const dataSourceOptions = [
@@ -45,6 +49,9 @@ const dataSourceOptions = [
 ];
 
 export const RequestForm: React.FC = () => {
+  const dispatch = useDispatch();
+  const { loading, error, success } = useSelector((state: RootState) => state.vacancy);
+
   const [sphere, setSphere] = useState<Sphere | ''>('');
   const [jobTitle, setJobTitle] = useState('');
   const [searchPeriodFrom, setSearchPeriodFrom] = useState<Date | null>(null);
@@ -64,21 +71,44 @@ export const RequestForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log({
-      sphere,
-      jobTitle,
-      searchPeriodFrom,
-      searchPeriodTo,
-      requirements,
-      experience,
-      location,
-      company,
-      employmentType,
-      paymentFrequency,
-      education,
-      dataSources,
-    });
+
+    const vacancyData: VacancyRequest = {
+      name: jobTitle,
+      from_date: searchPeriodFrom?.toISOString() || '',
+      to_date: searchPeriodTo?.toISOString() || '',
+      sources: dataSources,
+    };
+
+    // Добавляем опциональные поля только если они заполнены
+    if (requirements) {
+      vacancyData.requirements = requirements;
+    }
+
+    if (experience) {
+      vacancyData.experience = experience;
+    }
+
+    if (company) {
+      vacancyData.company_name = company;
+    }
+
+    if (employmentType) {
+      vacancyData.work_format = employmentType;
+    }
+
+    if (paymentFrequency) {
+      vacancyData.salary_frequency = paymentFrequency;
+    }
+
+    if (location) {
+      vacancyData.locality = location;
+    }
+
+    if (education) {
+      vacancyData.education = education;
+    }
+
+    dispatch(submitVacancy(vacancyData));
   };
 
   return (
@@ -229,7 +259,12 @@ export const RequestForm: React.FC = () => {
         <input type="text" id="education" value={education} onChange={(e) => setEducation(e.target.value)} />
       </div>
 
-      <Button type="submit">Получить статистику</Button>
+      {error && <div className={styles.error}>{error}</div>}
+      {success && <div className={styles.success}>Запрос успешно отправлен!</div>}
+
+      <Button type="submit" disabled={loading}>
+        {loading ? 'Отправка...' : 'Получить статистику'}
+      </Button>
     </form>
   );
 };

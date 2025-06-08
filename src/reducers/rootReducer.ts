@@ -1,10 +1,11 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from '@reduxjs/toolkit';
 import authReducer from './authReducer';
-import profileReducer from './profileReducer';
+import vacancyReducer from './vacancyReducer';
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  profile: profileReducer,
+  vacancy: vacancyReducer,
 });
 
+export type RootState = ReturnType<typeof rootReducer>;
 export default rootReducer;

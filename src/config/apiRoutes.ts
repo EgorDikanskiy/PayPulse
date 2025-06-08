@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:8000/api';
+const API_BASE = 'https://pay-pulse-backend.where-pizza.ru/api';
 const createApiRoute = (route: string) => `${API_BASE}${route}`;
 
 export const apiRoutes = {
@@ -6,7 +6,6 @@ export const apiRoutes = {
   register: createApiRoute('/auth/signup'),
   curentUser: createApiRoute('/auth/current'),
   books: createApiRoute('/books'),
-  refresh: createApiRoute('/auth/refresh'),
   profile: createApiRoute('/profile'),
   bookOnSlug: (slug: string) => createApiRoute(`/books/${slug}`),
   chapters: createApiRoute('/chapters'),

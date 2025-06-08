@@ -11,10 +11,10 @@ interface ApiConfigs {
 
 export const API_CONFIG: ApiConfigs = {
   development: {
-    baseURL: 'http://localhost:8000/api',
+    baseURL: 'https://pay-pulse-backend.where-pizza.ru/api',
   },
   production: {
-    baseURL: 'http://localhost:8000/api',
+    baseURL: 'https://pay-pulse-backend.where-pizza.ru/api',
   },
 };
 
